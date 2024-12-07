@@ -1,0 +1,19 @@
+```{python}
+# | eval: false
+import openpyxl # important to install this package
+import plotly.express as px
+import pandas as pd
+
+tips = px.data.tips()
+
+# Create some sample subsets
+sunday_tips = tips[tips['day'] == 'Sun']
+saturday_tips = tips[tips['day'] == 'Sat']
+friday_tips = tips[tips['day'] == 'Fri']
+
+# Use the ExcelWriter to export each subset to a separate sheet
+with pd.ExcelWriter('outputs/tips_subsets.xlsx') as writer:
+    sunday_tips.to_excel(writer, sheet_name='Sunday', index=False)
+    saturday_tips.to_excel(writer, sheet_name='Saturday', index=False)
+    friday_tips.to_excel(writer, sheet_name='Friday', index=False)
+```
